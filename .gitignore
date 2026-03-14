@@ -1,0 +1,24 @@
+# Dependencias
+node_modules/
+
+# Variables de entorno
+.env
+
+# Logs
+npm-debug.log*
+*.log
+
+# Archivos de build/producción
+dist/
+build/
+
+# IDEs y Editores
+.vscode/
+.DS_Store
+Thumbs.db
+
+ npx sequelize-cli model:generate --name tbc_usuarios --attributes nombre:string,direccion:string,telefono:string,email:string,password:string,rol:string,fecha_registro:string
+ npx sequelize-cli model:generate --name tbb_carritos --attributes id_usuario:integer,fecha_creacion:string
+ npx sequelize-cli model:generate --name tbc_carrito_detalle --attributes "id_carrito:integer,id_producto:integer,cantidad:integer,precio_unitario:decimal"
+ npx sequelize-cli model:generate --name tbb_productos --attributes id_categoria:integer,nombre:string,descripcion:string,precio:decimal,stock:integer
+ npx sequelize-cli model:generate --name tbc_categorias --attributes nombre:string
