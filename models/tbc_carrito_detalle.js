@@ -14,10 +14,22 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   tbc_carrito_detalle.init({
-    id_carrito: DataTypes.INTEGER,
-    id_producto: DataTypes.INTEGER,
-    cantidad: DataTypes.INTEGER,
-    precio_unitario: DataTypes.DECIMAL
+    id_carrito:{ 
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    id_producto: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    cantidad: {
+      type: DataTypes.INTEGER(11),
+      defaultValue: 1
+    },
+    precio_unitario: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'tbc_carrito_detalle',

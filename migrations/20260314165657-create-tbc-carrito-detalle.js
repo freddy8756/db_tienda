@@ -16,10 +16,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       cantidad: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER(11),
+        defaultValue: 1
       },
       precio_unitario: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.DECIMAL(10, 2),
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

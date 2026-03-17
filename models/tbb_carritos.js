@@ -14,11 +14,23 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   tbb_carritos.init({
-    id_usuario: DataTypes.INTEGER,
-    fecha_creacion: DataTypes.STRING
+    id_usuario:{ 
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    fecha_creacion: {
+      type: DataTypes.STRING(255),
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'tbb_carritos',
   });
+  tbb_carritos.associate = (models) =>{
+    tbb_carritos.belongsTo(models.tbc_usuarios, {
+      foreignKey: 'id_usuario',
+      as:'tbc_usuarios'
+    })
+  }
   return tbb_carritos;
 };

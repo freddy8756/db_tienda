@@ -14,16 +14,44 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   tbc_usuarios.init({
-    nombre: DataTypes.STRING,
-    direccion: DataTypes.STRING,
-    telefono: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    rol: DataTypes.STRING,
-    fecha_registro: DataTypes.STRING
+    nombre:{
+      type:DataTypes.STRING(100),
+      allowNull:false
+    }, 
+    direccion: {
+      type:DataTypes.STRING(150),
+      allowNull:false
+    },
+    telefono: {
+      type:DataTypes.STRING(15),
+      allowNull:false
+    },
+    email: {
+      type:DataTypes.STRING(120),
+      allowNull:false
+    },
+    password: {
+      type:DataTypes.STRING(225),
+      allowNull:false
+    },
+    rol: {
+      type:DataTypes.ENUM('admin', 'cliente'),
+      allowNull:false,
+      defaultValue:'cliente'
+    },
+    fecha_registro: {
+      type:DataTypes.DATE,
+      allowNull:false
+    }
   }, {
     sequelize,
     modelName: 'tbc_usuarios',
   });
+  tbc_usuarios.associate = (models) =>{
+    tbc_usuarios.hasMany(models.tbb_carritos, {
+      foreignKey: 'id_usuario',
+      as:'tbb_carritos'
+    })
+  };
   return tbc_usuarios;
 };

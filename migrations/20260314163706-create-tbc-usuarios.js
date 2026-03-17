@@ -10,25 +10,33 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       nombre: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(100),
+        allowNull:false
       },
       direccion: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(150),
+        allowNull:false
       },
       telefono: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(15),
+        allowNull:false
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(120),
+        allowNull:false
       },
       password: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(225),
+        allowNull:false
       },
       rol: {
-        type: Sequelize.STRING
+        type: Sequelize.ENUM('admin', 'cliente'),
+        allowNull:false,
+        defaultValue:'cliente'
       },
       fecha_registro: {
-        type: Sequelize.STRING
+        type: Sequelize.DATE,
+        allowNull:false
       },
       createdAt: {
         allowNull: false,
