@@ -31,6 +31,10 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'id_usuario',
       as:'tbc_usuarios'
     })
+     tbb_carritos.hasMany(models.tbc_carrito_detalle, {
+      foreignKey: 'id_carrito',
+      as:'tbc_carrito_detalle'
+    })
   }
   return tbb_carritos;
 };

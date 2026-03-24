@@ -10,7 +10,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       id_categoria: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER ,
+        allowNull: false,
+        references:{
+          model:'tbc_categorias',
+          key:'id'
+        }
       },
       nombre: {
         type: Sequelize.STRING(100),
