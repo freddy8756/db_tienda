@@ -1,49 +1,55 @@
-const Sequelize = require('sequelize');
-const { UPDATE } = require('sequelize/lib/query-types');
-const categorias = require('../models/tbc_categorias').categorias;
+const { tbc_categorias } = require('../models');
 
 module.exports = {
-    create(req,res){
-        return categorias
-        .create({
-            nombre: req.params.nombre
-        })
-        .then(categorias => res.status(200).send(categorias))
-        .catch(error => res.status(400).send(error))
+    async create(req, res) {
+        try {
+            const categoria = await tbc_categorias.create({
+                nombre: req.body.nombre
+            });
+            res.status(201).json(categoria);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
     },
-    list(_,res){
-        return categorias.findAll({})
-        .then(categorias => res.status(200).send(categorias))
-        .catch(error => res.status(400).send(error))
+
+    async list(_, res) {
+        try {
+            const categorias = await tbc_categorias.findAll();
+            res.status(200).json(categorias);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
     },
-    find(res,req){
-        return categorias.findAll({
-            where:{
-                nombre: req.params.nombre,
-            }
-        })
-        .then(categorias => res.status(200).send(categorias))
-        .catch(error => res.status(400).send(error))
+
+    async find(req, res) {
+        try {
+            const categorias = await tbc_categorias.findAll({
+                where: { nombre: req.params.nombre }
+            });
+            res.status(200).json(categorias);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
     },
-    delete(req,res){
-        return categorias.destroy({
-            where:{
-                id:req.params.id
-            }
-        })
-        .then(() => res.status(200).send({message:"categoria eliminada correctamente"}))
-        .catch(error => res.status(400).send(error))
+
+    async delete(req, res) {
+        try {
+            await tbc_categorias.destroy({ where: { id: req.params.id } });
+            res.status(200).json({ message: "Categoria eliminada correctamente" });
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
     },
-    update(req,res){
-        return categorias.update({
-            nombre: req.body.nombre
-        },
-        {
-            where:{
-                id:req.params.id
-            }
-        })
-        .then(() => res.status(200).send({message:"categoria actualizada correctamente"}))
-        .catch(error => res.status(400).send(error))
+
+    async update(req, res) {
+        try {
+            await tbc_categorias.update(
+                { nombre: req.body.nombre },
+                { where: { id: req.params.id } }
+            );
+            res.status(200).json({ message: "Categoria actualizada correctamente" });
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
     }
 };
