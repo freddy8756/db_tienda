@@ -13,7 +13,7 @@ module.exports = {
       });
 
       const token = jwt.sign(
-        { id: usuario.id, nombre: usuario.nombre },
+        { id: usuario.id, nombre: usuario.nombre, rol: usuario.rol },
         process.env.JWT_SECRET,
         { expiresIn: '1h' }
       );
@@ -35,7 +35,7 @@ module.exports = {
       if (!validPassword) return res.status(401).json({ message: 'Credenciales inválidas' });
 
       const token = jwt.sign(
-        { id: usuario.id, nombre: usuario.nombre },
+        { id: usuario.id, nombre: usuario.nombre, rol: usuario.rol },
         process.env.JWT_SECRET,
         { expiresIn: '1h' }
       );

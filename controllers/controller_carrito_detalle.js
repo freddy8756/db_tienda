@@ -17,25 +17,30 @@ module.exports = {
     }
   },
 
-  async list(_, res) {
-    try {
-      const detalles = await CarritoDetalle.findAll();
-      res.status(200).json(detalles);
-    } catch (error) {
-      res.status(400).json({ error: error.message });
+  async list(req, res) {
+  try {
+    if (req.user.rol !== 'admin') {
+      return res.status(403).json({ error: 'Acceso denegado' });
     }
-  },
+    const detalles = await CarritoDetalle.findAll();
+    res.status(200).json(detalles);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+},
 
-  async find(req, res) {
-    try {
-      const detalles = await CarritoDetalle.findAll({
-        where: { id_carrito: req.params.id_carrito }
-      });
-      res.status(200).json(detalles);
-    } catch (error) {
-      res.status(400).json({ error: error.message });
+async find(req, res) {
+  try {
+    if (req.user.rol === 'cliente' && req.user.id !== Number(req.params.id_carrito)) {
+      return res.status(403).json({ error: 'No puedes ver carritos de otros usuarios' });
     }
-  },
+    const detalles = await CarritoDetalle.findAll({ where: { id_carrito: req.params.id_carrito } });
+    res.status(200).json(detalles);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+},
+
 
   async delete(req, res) {
     try {
